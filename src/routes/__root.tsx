@@ -84,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "ALV-vähennys & Raporttilaskuri 2026" },
       { name: "description", content: "ALV-laskuri pienyrittäjälle: myynnit, vähennyskelpoiset ostot ja tulostettava raportti." },
+      { name: "google-site-verification", content: "v5BvEqRDQX3EaEqEn5lt2R3I76qc8oQ7Xr9NdePtSNE" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
