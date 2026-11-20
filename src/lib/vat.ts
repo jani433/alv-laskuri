@@ -70,7 +70,7 @@ export function periodOptions(type: PeriodType): { value: string; label: string 
   return [{ value: String(YEAR), label: `Vuosi ${YEAR}` }];
 }
 
-export function defaultPeriod(type: PeriodType) { return periodOptions(type)[0].value; }
+export function defaultPeriod(type: PeriodType) { return periodOptions(type)[0]?.value ?? String(YEAR); }
 
 export function isInPeriod(date: string, type: PeriodType, value: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date.slice(0, 4) !== String(YEAR)) return false;
@@ -95,7 +95,7 @@ export function isValidBusinessId(id: string) {
   const m = /^(\d{7})-(\d)$/.exec(id.trim());
   if (!m) return false;
   const w = [7, 9, 10, 5, 8, 4, 2];
-  const sum = m[1].split("").reduce((s, d, i) => s + Number(d) * w[i], 0);
+  const sum = (m[1] ?? "").split("").reduce((s, d, i) => s + Number(d) * (w[i] ?? 0), 0);
   const r = sum % 11;
   if (r === 1) return false;
   return (r === 0 ? 0 : 11 - r) === Number(m[2]);
@@ -159,7 +159,7 @@ export function parseSaved(raw: string | null): { state: SavedState | null; skip
   return {
     state: {
       items, periodType,
-      periodValue: opts.includes(s.periodValue) ? s.periodValue : opts[0],
+      periodValue: opts.includes(s.periodValue) ? s.periodValue : (opts[0] ?? String(YEAR)),
       businessName: typeof s.businessName === "string" ? s.businessName.slice(0, 100) : "",
       businessId: typeof s.businessId === "string" ? s.businessId.slice(0, 20) : "",
     },
