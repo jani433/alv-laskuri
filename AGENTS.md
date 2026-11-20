@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- All VAT math, periods, validation, storage parsing and CSV live as pure functions in src/lib/vat.ts with tests in src/lib/vat.test.ts; UI only calls them, so rules stay testable.
+- Amounts are computed in integer cents with per-row rounding; never sum floats.
+- No login, database or paid services: data stays in browser localStorage under the original key for backward compatibility.
